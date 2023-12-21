@@ -6,7 +6,7 @@ const Main = () => {
 
    const currentLocation = useLocation();
    console.log(currentLocation);
-   const isLogin = currentLocation.pathname.includes('login')
+   const isLogin = currentLocation.pathname.includes('login') || currentLocation.pathname.includes('signup')
    return (
       <div>
          { isLogin || <Navbar></Navbar>}
