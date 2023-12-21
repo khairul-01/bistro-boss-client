@@ -9,10 +9,11 @@ const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
 
-    const { signIn, user } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
+    console.log('state in the location page', location.state);
 
     useEffect(() => {
         loadCaptchaEnginge(6);

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { FaCartPlus } from "react-icons/fa";
 
 const Navbar = () => {
    const { user, logOut } = useContext(AuthContext);
@@ -8,7 +9,7 @@ const Navbar = () => {
       logOut()
          .then(() => {
             console.log("Successfully Logged out")
-            
+
          })
          .catch(error => console.log(error))
    }
@@ -18,9 +19,16 @@ const Navbar = () => {
       <li><Link to='/order/salad'>Order Food</Link></li>
       <li><Link to='/signup'>Register</Link></li>
       <li><Link to='/secret'>Secret</Link></li>
+      <li>
+         <Link>
+            <button className="flex items-center">
+               <FaCartPlus />
+               <div className="badge badge-secondary ml-2">+0</div>
+            </button>
+         </Link>
+      </li>
       {
          user ? <>
-            <li><span>{user?.displayName}</span></li>
             <li><button onClick={hadleLogout} className="">Log out</button></li>
          </>
             :
