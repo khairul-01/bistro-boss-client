@@ -5,10 +5,13 @@ import { IoBagAdd } from "react-icons/io5";
 import { AiFillHome } from "react-icons/ai";
 import { NavLink, Outlet } from "react-router-dom";
 import useCarts from "../hooks/useCarts";
+import { MdOutlineContactPhone } from "react-icons/md";
 
 
 const Dashboard = () => {
    const [cart] = useCarts();
+   // TODO: get admin value from the database
+   const isAdmin = true;
    return (
       <div className="flex">
          {/* Dashboard side bar */}
@@ -34,6 +37,7 @@ const Dashboard = () => {
                   <NavLink to={'/'} className='flex items-center gap-2 pl-2'><AiFillHome />Home</NavLink>
                </li>
                <li><NavLink to='/order/salad' className='flex items-center gap-2 pl-2'><IoBagAdd /> Order Food</NavLink></li>
+               <li><NavLink to='/order/contact' className='flex items-center gap-2 pl-2'><MdOutlineContactPhone /> Contact</NavLink></li>
             </ul>
          </div>
          {/* Dashboard content */}
