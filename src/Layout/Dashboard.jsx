@@ -8,12 +8,13 @@ import { AiFillHome } from "react-icons/ai";
 import { NavLink, Outlet } from "react-router-dom";
 import useCarts from "../hooks/useCarts";
 import { MdOutlineContactPhone } from "react-icons/md";
+import useAdmin from "../hooks/useAdmin";
 
 
 const Dashboard = () => {
    const [cart] = useCarts();
    // TODO: get admin value from the database
-   const isAdmin = true;
+   const [isAdmin] = useAdmin();
    return (
       <div className="flex">
          {/* Dashboard side bar */}
