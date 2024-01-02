@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useCarts from "../../../hooks/useCarts";
 import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const Cart = () => {
@@ -43,7 +44,14 @@ const Cart = () => {
          <div className="flex justify-evenly mb-8">
             <h1 className="text-5xl">Items: {cart.length} </h1>
             <h1 className="text-5xl">Total Price: {totalPrice} </h1>
-            <button className="btn btn-primary">Pay</button>
+
+            {
+               cart.length ? <Link to='/dashboard/payment'>
+                  <button className="btn btn-primary">Pay</button>
+               </Link>
+                  :
+                  <button disabled className="btn btn-primary">Pay</button>
+            }
          </div>
          <div className="overflow-x-auto">
             <table className="table w-full">
