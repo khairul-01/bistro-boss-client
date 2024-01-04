@@ -2,14 +2,17 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCarts from "../../../hooks/useCarts";
+import useAuth from "../../../hooks/useAuth";
 
 
 const CheckoutForm = () => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('');
+    const [transactionId, setTransactionId] = useState('');
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
     const [cart] = useCarts();
     const totalPrice = cart.reduce((total, currentItem) => total + currentItem.price ,0)
 
@@ -17,7 +20,7 @@ const CheckoutForm = () => {
         axiosSecure.post('/create-payment-intent', {price: totalPrice})
         .then(res => {
             console.log(res.data.clientSecret);
-            setClientSecret(res.data.setClientSecret);
+            setClientSecret(res.data.clientSecret);
         })
     },[axiosSecure, totalPrice])
 
@@ -43,6 +46,29 @@ const CheckoutForm = () => {
             console.log('payment method', paymentMethod);
             setError('');
         }
+
+        // confirm payment
+        const {paymentIntent, errora: confirmError} = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email || 'Anonymous',
+                    name: user?.displayName || 'Anonymous'
+                }
+            }
+        })
+
+        if(confirmError){
+            console.log('confirm error', );
+        }
+        else{
+            console.log('payment intent',paymentIntent);
+            if(paymentIntent.status === 'succeeded'){
+                console.log('Transaction Id', paymentIntent.id);
+                setTransactionId(paymentIntent.id);
+            }
+        }
+
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -67,6 +93,9 @@ const CheckoutForm = () => {
             </button>
             <>
             <p className="text-red-500">{error}</p>
+            {
+                transactionId && <p className="text-green-600">Your Transaction Id:  {transactionId}</p>
+            }
             </>
         </form>
     );
