@@ -3,9 +3,11 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { FaCartPlus } from "react-icons/fa";
 import useCarts from "../../../hooks/useCarts";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
    const { user, logOut } = useContext(AuthContext);
+   const [isAdmin] = useAdmin();
    const [cart] = useCarts();
    const hadleLogout = () => {
       logOut()
@@ -20,7 +22,19 @@ const Navbar = () => {
       <li><NavLink to='/menu'>Our Menu</NavLink></li>
       <li><NavLink to='/order/salad'>Order Food</NavLink></li>
       <li><NavLink to='/signup'>Register</NavLink></li>
-      <li><NavLink to='/secret'>Secret</NavLink></li>
+      
+      {
+         user && isAdmin && <>
+         <li><NavLink to='/secret'>Secret</NavLink></li>
+         <li><NavLink to='/dashboard/adminHome'>Admin Home</NavLink></li>
+         </>
+      }
+      {
+         user && !isAdmin && <>
+         <li><NavLink to='/secret'>Secret</NavLink></li>
+         <li><NavLink to='/dashboard/userHome'>User Home</NavLink></li>
+         </>
+      }
       <li>
          <NavLink to={'/dashboard/cart'}>
             <button className="flex items-center">

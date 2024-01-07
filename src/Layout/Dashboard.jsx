@@ -22,6 +22,7 @@ const Dashboard = () => {
             <ul>
                {
                   isAdmin ? <>
+                  {/* for admin */}
                      <li>
                         <NavLink to={'/dashboard/adminHome'} className='flex items-center gap-2 pl-2'><AiFillHome /> Admin Home</NavLink>
                      </li>
@@ -39,12 +40,13 @@ const Dashboard = () => {
                      </li>
                   </>
                      :
+                     // for normal user
                      <>
                         <li>
                            <NavLink to={'/dashboard/userHome'} className='flex items-center gap-2 pl-2'><AiFillHome /> User Home</NavLink>
                         </li>
                         <li>
-                           <NavLink to={'/dashboard/reservation'} className='flex items-center gap-2 pl-2'><FaCalendarAlt /> Reservation</NavLink>
+                           <NavLink to={'/dashboard/history'} className='flex items-center gap-2 pl-2'><FaCalendarAlt /> Payment History</NavLink>
                         </li>
                         <li>
                            <NavLink to='/dashboard/cart' className='flex items-center gap-2 pl-2'><FaCartPlus></FaCartPlus> My Cart ({cart.length}) </NavLink>
@@ -53,7 +55,7 @@ const Dashboard = () => {
                            <NavLink to={'/dashboard/review'} className='flex items-center gap-2 pl-2'><VscPreview /> Add Review</NavLink>
                         </li>
                         <li>
-                           <NavLink to={'/dashboard/bookings'} className='flex items-center gap-2 pl-2'><BsFillBookmarkStarFill /> My Bookings</NavLink>
+                           <NavLink to={'/dashboard/paymentHistory'} className='flex items-center gap-2 pl-2'><BsFillBookmarkStarFill /> Real Payment History</NavLink>
                         </li>
 
                      </>
