@@ -21,6 +21,9 @@ const AddItem = () => {
                 'content-type': 'multipart/form-data'
             }
         });
+
+        
+
         if (res.data.success) {
             // now send the menu item data to the server with the image
             const menuItem = {

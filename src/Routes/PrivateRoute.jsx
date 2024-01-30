@@ -6,6 +6,9 @@ import useAuth from "../hooks/useAuth";
 const PrivateRoute = ({children}) => {
     const {user, loading} = useAuth();
     const location = useLocation();
+
+    console.log(location);
+    
     if(loading) {
         return <div className="max-h-screen flex justify-center items-center"><progress className=" progress w-56"></progress></div>
     }
